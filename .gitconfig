@@ -1,0 +1,14 @@
+[users]
+  name = name
+  email = email
+
+[includeIf "gitdir:/home/paputron76/Documents/Desarrollo web Integral/Project/"]
+  # Todos los proyectos que descarguemos o creemos a partir de esta ruta, usara tu cuenta de tu trabajo
+  path = ~/.gitconfig.trabajo
+
+[includeIf "gitdir:~/paputron76/Projects/"]
+  # Todos los proyectos que descarguemos o creemos a partir de esta ruta, usara tu cuenta personal
+  # este bloque es opcional, pero debes de asegurarte de colocar el primer bloque.
+  path = ~/.gitconfig.personal
+[init]
+	defaultBranch = `master
