@@ -12,7 +12,7 @@ import reactor.core.publisher.Flux;
 @Service
 public class StudentService {
 
-    @Value("${url.base.alumno}")
+    @Value("${url.base.student}")
     private final String customerUrl;
     private final WebClient webClient;
 
