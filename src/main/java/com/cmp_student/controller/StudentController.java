@@ -1,18 +1,15 @@
 package com.cmp_student.controller;
 
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cmp_student.dto.HeadersDto;
 import com.cmp_student.dto.StudentDto;
-import com.cmp_student.dto.StudentRsDto;
 import com.cmp_student.service.StudentService;
 
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/student")
@@ -24,14 +21,11 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping
-    public Mono<StudentRsDto> create(@Validated @RequestBody StudentDto studentDto) {
-        return studentService.create(studentDto);
-    }
-
-    @GetMapping
-    public Flux<StudentDto> findAll() {
-        return studentService.findAll();
+    @GetMapping 
+    public Flux<StudentDto> rent(@RequestHeader(name = "flow") String flow) {
+        HeadersDto headersDto = HeadersDto.builder().flow(flow).build();
+        return studentService.findAll(headersDto);
+                
     }
 
 }

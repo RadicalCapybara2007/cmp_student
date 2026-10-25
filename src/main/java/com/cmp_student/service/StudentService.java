@@ -4,34 +4,26 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.cmp_student.dto.HeadersDto;
 import com.cmp_student.dto.StudentDto;
-import com.cmp_student.dto.StudentRsDto;
 
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Service
 public class StudentService {
 
-    @Value("${base.url.player}")
-    private String baseUrlPlayer;
+    @Value("${url.base.student}")
+    private final String customerUrl;
     private final WebClient webClient;
 
-    public StudentService(WebClient webClient) {
+    public StudentService(String customerUrl, WebClient webClient) {
+        this.customerUrl = customerUrl;
         this.webClient = webClient;
     }
 
-    public Mono<StudentRsDto> create(StudentDto studentDto) {
-        return webClient.post()
-                .uri(baseUrlPlayer)
-                .bodyValue(studentDto)
-                .retrieve()
-                .bodyToMono(StudentRsDto.class);
-    }
-
-    public Flux<StudentDto> findAll() {
+    public Flux<StudentDto> findAll(HeadersDto headersDto) {
         return webClient.get()
-                .uri(baseUrlPlayer)
+                .uri(customerUrl)
                 .retrieve()
                 .bodyToFlux(StudentDto.class);
     }

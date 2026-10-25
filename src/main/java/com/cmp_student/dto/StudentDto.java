@@ -1,21 +1,25 @@
 package com.cmp_student.dto;
 
-import com.cmp_student.constraints.SanitizedHtml;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.validation.constraints.NotBlank;
-import tools.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record StudentDto(
-        @JsonIgnore Integer id,
-        @NotBlank(message = "Name no debe estar vacío") String name,
-        @SanitizedHtml(message = "Last name contiene código malicioso") String lastName,
-        @SanitizedHtml(message = "Potentially dangerous HTML code was detected in the biography.") String phone,
-        String eMail) {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class StudentDto {
 
-    @Override
-    public String toString() {
-        return new ObjectMapper().writeValueAsString(this);
-    }
+    @JsonIgnore
+    private Integer id;
+    private String matricula;
+    private String name;
+    private String lastName;
+    private String phone;
+    private String eMail;
+    private String address;
 
 }
